@@ -32,11 +32,6 @@
     "configuration": {
       "title": "Synapse Z",
       "properties": {
-        "synz.autoAttach": {
-          "type": "boolean",
-          "description": "Automatically inject when Roblox is detected. The menu button will indicate if this is active.",
-          "default": false
-        },
         "synz.quickAccess": {
           "type": "boolean",
           "description": "Show status bar buttons for executing and attaching when Roblox is open.",

@@ -21,6 +21,7 @@ import {
 
 import express, { Application } from "express";
 import { Server } from "http";
+import { showScriptSelector } from "./scriptSelector";
 
 function delay(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -129,7 +130,8 @@ export function activate(context: ExtensionContext) {
   );
 
   statusBarButton.name = "Synapse-Z";
-  statusBarButton.text = "$(loading~spin) SynZ";
+  statusBarButton.text = "$(telescope) SynZ";
+  // statusBarButton.text = "$(loading~spin) SynZ";
   statusBarButton.command = "synz.openmenu";
   statusBarButton.show();
 
@@ -139,7 +141,8 @@ export function activate(context: ExtensionContext) {
     setInterval(async () => {
       let NewRobloxOpenValue: boolean | undefined = undefined;
 
-      const AutoAttach = workspace.getConfiguration("synz").get("autoAttach");
+      // TODO: Re-enable when auto attach works
+      // const AutoAttach = workspace.getConfiguration("synz").get("autoAttach");
 
       const AutomaticallyDetectRobloxProcess = workspace
         .getConfiguration("synz")
@@ -148,14 +151,15 @@ export function activate(context: ExtensionContext) {
       const QuickAccess =
         workspace.getConfiguration("synz").get("quickAccess") === true;
 
-      if (
-        workspace.getConfiguration("synz").get("autoAttach") === true &&
-        AutomaticallyDetectRobloxProcess
-      ) {
-        statusBarButton.text = "$(debug-disconnect) SynZ (Auto Attaching)";
-      } else {
-        statusBarButton.text = "$(debug-disconnect) SynZ";
-      }
+      // TODO: Re-enable when auto attach works
+      // if (
+      //   workspace.getConfiguration("synz").get("autoAttach") === true &&
+      //   AutomaticallyDetectRobloxProcess
+      // ) {
+      //   statusBarButton.text = "$(telescope) SynZ (Auto Attaching)";
+      // } else {
+      //   statusBarButton.text = "$(telescope) SynZ";
+      // }
 
       if (AutomaticallyDetectRobloxProcess) {
         NewRobloxOpenValue = await getRobloxProcesses();
@@ -177,15 +181,16 @@ export function activate(context: ExtensionContext) {
         executeButton.hide();
       }
 
-      if (
-        AutoAttach &&
-        AutomaticallyDetectRobloxProcess &&
-        NewRobloxOpenValue !== RobloxOpen &&
-        RobloxOpen !== undefined &&
-        NewRobloxOpenValue !== undefined
-      ) {
-        commands.executeCommand("synz.attach");
-      }
+      // TODO: Re-enable when auto attach works
+      // if (
+      //   AutoAttach &&
+      //   AutomaticallyDetectRobloxProcess &&
+      //   NewRobloxOpenValue !== RobloxOpen &&
+      //   RobloxOpen !== undefined &&
+      //   NewRobloxOpenValue !== undefined
+      // ) {
+      //   commands.executeCommand("synz.attach");
+      // }
 
       RobloxOpen = NewRobloxOpenValue;
     }, 500);
@@ -337,37 +342,41 @@ export function activate(context: ExtensionContext) {
 
       const items: QuickPickItem[] = [
         {
-          iconPath: parentPath
-            ? new ThemeIcon("pass-filled")
-            : new ThemeIcon("error"),
+          iconPath: parentPath ? new ThemeIcon("pass") : new ThemeIcon("error"),
           label: "Loader",
           description: parentPath
             ? parentPath.toString()
             : "File not specified",
-          detail: "Click here to select the loader file for synz",
-        },
-        {
-          iconPath: new ThemeIcon("settings-gear"),
-          label: "Settings",
-          detail: "Click here to change your settings",
+          detail: parentPath ? "" : "Click here to choose the synz loader file",
         },
       ];
 
-      if (parentPath && RobloxOpen) {
-        items.push(
-          {
-            label: "Executor Functions",
-            kind: QuickPickItemKind.Separator,
-          },
-          {
-            iconPath: new ThemeIcon("debug-disconnect"),
-            label: "Attach",
-          },
-          {
-            iconPath: new ThemeIcon("play"),
-            label: "Execute",
-          }
-        );
+      if (parentPath) {
+        items.push({
+          iconPath: new ThemeIcon("settings"),
+          label: "Settings",
+        });
+
+        if (RobloxOpen !== false) {
+          items.push(
+            {
+              iconPath: new ThemeIcon("file-code"),
+              label: "Scripts",
+            },
+            {
+              label: "Executor Functions",
+              kind: QuickPickItemKind.Separator,
+            },
+            {
+              iconPath: new ThemeIcon("debug-disconnect"),
+              label: "Attach",
+            },
+            {
+              iconPath: new ThemeIcon("play"),
+              label: "Execute",
+            }
+          );
+        }
       }
 
       quickPick.title = "Synapse-Z";
@@ -378,6 +387,8 @@ export function activate(context: ExtensionContext) {
           showFileSelect(context).catch(console.error);
         } else if (selection[0].label === "Settings") {
           commands.executeCommand("workbench.action.openSettings", "Synapse Z");
+        } else if (selection[0].label === "Scripts") {
+          showScriptSelector(context);
         } else if (selection[0].label === "Attach") {
           quickPick.hide();
           commands.executeCommand("synz.attach");
