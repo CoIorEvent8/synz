@@ -14,7 +14,7 @@ All notable changes to the "synz" extension will be documented in this file.
 
 - Script browser - filter global, workspace, and synapse scripts.
 
-## [0.1.1] - 2024-09-08
+## [0.0.2] - 2024-09-09
 
 ### Changes
 
@@ -27,7 +27,7 @@ All notable changes to the "synz" extension will be documented in this file.
 
 - Show executor buttons in quick pick menu when automaticallyDetectRobloxProcess is disabled
 
-## [0.1.0] - 2024-09-08
+## [0.0.1] - 2024-09-08
 
 ### Added
 

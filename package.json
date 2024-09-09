@@ -2,7 +2,7 @@
   "name": "synz",
   "displayName": "Synapse Z (SynZ)",
   "description": "An API wrapper for Synapse Z that allows you to execute scripts from VSCode.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "publisher": "CoIorEvent8",
   "author": {
     "name": "CoIorEvent8"
