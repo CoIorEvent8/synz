@@ -1,17 +1,32 @@
 {
   "name": "synz",
-  "displayName": "synz",
-  "description": "",
+  "displayName": "Synapse Z (SynZ)",
+  "description": "An API wrapper for Synapse Z that allows you to execute scripts from VSCode.",
   "version": "0.0.1",
+  "publisher": "CoIorEvent8",
+  "author": {
+    "name": "CoIorEvent8"
+  },
   "engines": {
     "vscode": "^1.93.0"
   },
   "categories": [
     "Other"
   ],
+  "icon": "images/synz.webp",
+  "galleryBanner": {
+    "color": "#1a1a1a",
+    "theme": "dark"
+  },
   "activationEvents": [
     "onStartupFinished"
   ],
+  "pricing": "Free",
+  "license": "See license in license.md",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CoIorEvent8/synz-vscode.git"
+  },
   "main": "./dist/extension.js",
   "contributes": {
     "configuration": {

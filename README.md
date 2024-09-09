@@ -1,6 +1,6 @@
-# Synz VSCode Extension
+# Synapse Z to Visual Studio Code
 
-A utility for injecting, executing, and debugging scripts using Synapse Z. Unlike others, this uses a custom API wrapper to interact with Synapse Z. We do not rely on websockets to execute, and you can attach directly from VSCode.
+This is a utility for injecting, executing, and debugging scripts using Synapse Z. Unlike others, this uses a custom API wrapper to interact with Synapse Z. It does not rely on websockets to execute allowing you to attach directly from VSCode.
 
 ## Features
 
@@ -30,5 +30,5 @@ This extension contributes the following settings:
 
 ## Upcoming Features
 
-- Easily access global scripts as well as your own in the quick-access menu.
+- Script browser for global scripts as well as your own in the quick-access menu.
 - Apply fixes related to auto-attaching
